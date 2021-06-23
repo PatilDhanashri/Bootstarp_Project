@@ -1,7 +1,7 @@
 // const taskContainer = document.getElementsByClassName("task_container");
 const taskContainer = document.querySelector(".task_container");
 
-const globalStore = []; // some values []
+let globalStore = []; // some values []
 
 const generateNewCard = (taskData) => `
 <div class="col-md-6 col-lg-4">
@@ -72,11 +72,38 @@ const saveChanges = () => {
 
 };
 
+const deleteCard = (event) => {
+  event = window.event;
+  // id
+  const targetID = event.target.id;
+  const tagname = event.target.tagName; // BUTTON
+  // match the id of the element with the id inside the globalStore
+  // if match found remove
 
+  globalStore = globalStore.filter((cardObject) => cardObject.id !== targetID); 
+  localStorage.setItem("tasky", JSON.stringify({cards:globalStore})); // an object
+  // contact parent
+
+  if(tagname === "BUTTON"){
+    return taskContainer.removeChild(event.target.parentNode.parentNode.parentNode);
+  }else{
+    return taskContainer.removeChild(event.target.parentNode.parentNode.parentNode.parentNode);
+  }
+
+};
 
 // Issues
 
 // Page refresh will cause the data to be deleted -> localstorage -> 5MB [solved]
+
+
+
+// Features
+
+// Delete The card  [solved]
+
+// Edit the card
+// Open the card
 
 
 
